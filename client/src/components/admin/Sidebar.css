@@ -1,0 +1,47 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    padding: 4rem 0;
+}
+
+.sidebar > a:first-child{
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.sidebar > a:first-child > img{
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+.sidebar > a:first-child > img:hover{
+    filter: drop-shadow(0 0 10px green);
+}
+
+.sidebar a, .sidebar .productTab{
+    text-decoration: none;
+    font: 200 1rem "Roboto";
+    color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    transition: all 0.5s ease-in-out;
+}
+
+.sidebar a:hover{
+    color: tomato;
+    transform: scale(1.05);
+}
+
+.sidebar a > p{
+    display: flex;
+    align-items: center;
+}
+
+.sidebar a > p > svg{
+    margin-right: 0.5rem;
+}
+
+.MuiTypography-root{
+    background-color: #fff !important;
+}
+

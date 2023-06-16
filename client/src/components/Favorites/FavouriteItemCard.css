@@ -1,0 +1,82 @@
+.FavItemCard{
+    display: flex;
+    align-items: flex-start;
+    padding: 1vmax;
+    height: 8vmax;
+    box-sizing: border-box;
+}
+
+.FavItemCard > img{
+    width: 5vmax;
+    height: 80%;
+}
+
+.cardDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.3vmax 1vmax;
+    height: 100%;
+    width: 80%;
+    padding: 1vmax;
+    box-sizing: border-box;
+}
+
+.cardDetails > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.cardDetails > div > a{
+    font: 300 0.9vmax cursive;
+    color: rgba(24, 24, 24, 0.815);
+    text-decoration: none;
+}
+
+.cardDetails > div > span{
+    font: 300 0.9vmax cursive;
+    color: rgba(24, 24, 24, 0.815);
+}
+
+.cardDetails > div > p{
+    color: tomato;
+    font: 100 1vmax "Roboto";
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px){
+
+    .FavItemCard{
+        padding: 3vmax;
+        height: 25vmax;
+    }
+    
+    .FavItemCard > img{
+        width: 10vmax;
+    }
+    
+    .cardDetails{
+        flex-direction: column;
+        margin: 0 2vmax;
+        margin-right: 0;
+        height: 60%;
+    }
+
+    .cardDetails > div{
+        justify-content: center;
+    }
+    
+    .cardDetails > div > a{
+        font: 300 2vmax cursive;
+    }
+    
+    .cardDetails > div > span{
+        font: 300 1.9vmax cursive;
+    }
+    
+    .cardDetails > div > p{
+        font: 100 2vmax "Roboto";
+    }
+}

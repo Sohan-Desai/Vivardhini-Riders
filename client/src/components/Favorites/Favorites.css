@@ -1,0 +1,193 @@
+.emptyFav{
+    margin: auto;
+    text-align: center;
+    height: 50vh;
+    padding: 10vmax;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.emptyFav > svg{
+    color: tomato;
+    font-size: 5vmax;
+}
+
+.emptyFav > p{
+    font-size: 2vmax;
+}
+
+.emptyFav > a{
+    background-color: rgb(51,51,51);
+    color: #fff;
+    padding: 1vmax 3vmax;
+    font: 400 1vmax "Roboto";
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin: 1vmax;
+}
+
+.favPage {
+    padding: 5vmax;
+}
+
+.favHeader {
+    background-color: tomato;
+    box-sizing: border-box;
+    margin: auto;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    color: #fff;
+    font: 300 0.7vmax "Roboto";
+}
+
+.favHeader>p {
+    margin: 10px;
+}
+
+.favHeader>p:last-child {
+    text-align: end;
+}
+
+.favContainer {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+}
+
+.favInput {
+    height: 8vmax;
+    display: flex;
+    align-items: center;
+}
+
+.favInput>button {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.616);
+    padding: 0.5vmax;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.5s;
+}
+
+.favInput>button:hover {
+    background-color: rgba(0, 0, 0, 0.767);
+}
+
+.favInput>input {
+    border: none;
+    outline: none;
+    width: 1vmax;
+    text-align: center;
+    padding: 0.5vmax;
+    color: rgba(0, 0, 0, 0.75);
+    font: 400 0.8vmax "Roboto";
+}
+
+.favSubtotal {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5vmax;
+    height: 8vmax;
+    font: 300 1vmax cursive;
+    color: rgba(0, 0, 0, 0.75);
+    box-sizing: border-box;
+}
+
+.favGrossTotal {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+}
+
+.favGrossTotalBox {
+    margin: 1vmax 4vmax;
+    box-sizing: border-box;
+    border-top: 3px solid tomato;
+    font: 300 1vmax cursive;
+    padding: 2vmax 0.8vmax;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkOutBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.checkOutBtn>button {
+    color: #fff;
+    background-color: tomato;
+    font: 300 0.8vmax "Roboto";
+    width: 50%;
+    padding: 0.8vmax 4vmax;
+    border: none;
+    border-radius: 30px;
+    margin: 1vmax 4vmax;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+
+    .favPage {
+        padding: 0;
+        min-height: 60vh;
+    }
+
+    .favHeader {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        font: 300 1.7vmax "Roboto";
+    }
+
+    .favContainer {
+        width: 100%;
+        grid-template-columns: 3fr 1fr 1fr;
+    }
+
+    .favInput {
+        height: 20vmax;
+    }
+
+    .favInput>button {
+        padding: 1.5vmax;
+    }
+
+    .favInput>button:hover {
+        background-color: rgba(0, 0, 0, 0.767);
+    }
+
+    .favInput>input {
+        width: 2vmax;
+        padding: 1.5vmax;
+        font: 400 1.8vmax "Roboto";
+    }
+
+    .favSubtotal {
+        padding: 1.5vmax;
+        height: 20vmax;
+        font: 300 2vmax cursive;
+    }
+
+    .favGrossTotal {
+        display: grid;
+        grid-template-columns: 0fr 2fr;
+    }
+
+    .favGrossTotalBox {
+        font: 300 2vmax cursive;
+        padding: 2vmax 1vmax;
+    }
+
+    .checkOutBtn>button {
+        font: 300 2vmax "Roboto";
+        width: 100%;
+        padding: 2vmax 4vmax;
+    }
+
+}
