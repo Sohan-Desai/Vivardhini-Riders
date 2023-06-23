@@ -33,14 +33,31 @@ const userSchema = new mongoose.Schema({
             required: true,
         },
     },
+    wishlist:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Item"
+        }
+    ],
+    // address:[
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "Address"
+    //     }
+    // ],
     role: {
         type: String,
         default: "user",
+    },
+    isBlocked:{
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,
         default: Date.now
     },
+    passwordChangedAt: Date,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });

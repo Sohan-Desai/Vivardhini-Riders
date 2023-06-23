@@ -88,13 +88,13 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     //need to change reset port
     const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
-    const message = `Hello ${user.name}!\nYour password reset token is, \n\n ${resetPasswordUrl} \n\nIn case you have not requested for a reset, please ignore it.`;
+    const message = `Hello ${user.name}!\nYour password reset token is, \n\n ${resetPasswordUrl} \n\nIn case you have not requested for a reset, please ignore it.\nKindly note that the link expires within 5 minutes since generation`;
 
     try {
 
         await sendEmail({
             email: user.email,
-            subject: `Vivardhini Password Recovery`,
+            subject: `Vivardhini Riders Password Recovery`,
             message
         });
 
@@ -164,6 +164,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user.id).select("+password");
 
     const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+    
     if (!isPasswordMatched) {
         return next(new ErrorHandler("Existing password is incorrect", 400));
     }
@@ -248,6 +249,19 @@ exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
 })
 /*########################################################################################################################################## */
 
+// Get wishlist
+exports.getUserWishlist = catchAsyncErrors(async (req, res, next) => {
+
+    const user = await User.findById(req.user.id).populate('wishlist');
+
+    res.status(200).json({
+        success: true,
+        user
+    });
+
+})
+/*########################################################################################################################################## */
+
 // Update user role     --admin
 exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 
@@ -286,6 +300,65 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        meesage: "User deleted successfully!"
+        message: "User deleted successfully!"
+    });
+})
+
+/*########################################################################################################################################## */
+
+// Block user      --admin
+exports.blockUser = catchAsyncErrors(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User with id ${req.params.id} does not exist`), 400);
+    }
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        isBlocked: true
+    };
+
+    await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        success: true,
+        message: "User blocked"
+    });
+})
+
+/*########################################################################################################################################## */
+
+// Unblock user      --admin
+exports.unBlockUser = catchAsyncErrors(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User with id ${req.params.id} does not exist`), 400);
+    }
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        isBlocked: false
+    };
+
+    await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+
+    res.status(200).json({
+        success: true,
+        message: "User unblocked"
     });
 })

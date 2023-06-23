@@ -15,10 +15,20 @@ app.use(fileUpload());
 const product = require("./routes/productRoute");
 const item = require("./routes/itemRoute");
 const user = require("./routes/userRoute");
+const blog = require("./routes/blogRoute");
+const prodcategory = require("./routes/prodcategoryRoute");
+const blogcategory = require("./routes/blogcategoryRoute");
+const brand = require("./routes/brandRoute");
+const enquiry = require("./routes/enqRoute");
 
 app.use("/api/v1", product);
 app.use("/api/v1", item);
 app.use("/api/v1", user);
+app.use("/api/v1", blog);
+app.use("/api/v1", prodcategory);
+app.use("/api/v1", blogcategory);
+app.use("/api/v1", brand);
+app.use("/api/v1", enquiry);
 
 // Middleware for errors
 app.use(errorMiddleware);

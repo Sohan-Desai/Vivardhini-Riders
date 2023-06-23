@@ -4,10 +4,10 @@ class ApiFeatures {
         this.queryStr = queryStr;
     }
 
-    search(){
+    search() {
         const keyword = this.queryStr.keyword ? {
-            name:{
-                $regex:this.queryStr.keyword,
+            name: {
+                $regex: this.queryStr.keyword,
                 $options: "i"
             }
         } : {
@@ -16,16 +16,16 @@ class ApiFeatures {
 
         console.log(keyword);
 
-        this.query = this.query.find({...keyword});
+        this.query = this.query.find({ ...keyword });
         return this;
     }
 
-    filter(){
+    filter() {
 
-        const queryCopy = {...this.queryStr};
+        const queryCopy = { ...this.queryStr };
 
         // Removing some fields for category
-        const removeFields = ["keyword", "page", "limit"];
+        const removeFields = ["keyword", "sort", "page", "limit", "fields"];
 
         removeFields.forEach(key => delete queryCopy[key]);
 
@@ -35,14 +35,33 @@ class ApiFeatures {
 
         this.query = this.query.find(JSON.parse(queryStr));
         return this;
-
     }
 
-    pagination(resultPerPage){
+    sort() {
+        if (this.queryStr.sort) {
+            const sortBy = this.queryStr.sort.split(",").join(" ");
+            this.query = this.query.sort(sortBy);
+        } else {
+            this.query = this.query.sort("-createdAt");
+        }
+        return this;
+    }
+
+    limit() {
+        if (this.queryStr.fields) {
+            const fields = this.queryStr.fields.split(",").join(" ");
+            this.query = this.query.select(fields);
+        } else {
+            this.query = this.query.select("-__v");
+        }
+        return this;
+    }
+
+    pagination(resultPerPage) {
 
         const currentPage = Number(this.queryStr.page) || 1;
 
-        const skip = resultPerPage * (currentPage-1);
+        const skip = resultPerPage * (currentPage - 1);
 
         this.query = this.query.limit(resultPerPage).skip(skip);
 

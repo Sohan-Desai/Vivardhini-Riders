@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllItems, getAdminItems ,createItem, updateItem, deleteItem, getItemDetails, createItemReview, getItemReviews, deleteItemReview } = require("../controllers/itemController");
+const { getAllItems, getAdminItems, createItem, updateItem, deleteItem, getItemDetails, createItemReview, getItemReviews, deleteItemReview, addToWishlist } = require("../controllers/itemController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const router = express.Router();
@@ -19,6 +19,9 @@ router.route("/admin/item/new")
 router.route("/admin/item/:id")
     .put(isAuthenticatedUser, authorizeRoles("admin"), updateItem)
     .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteItem);
+
+router.route("/item/wishlist").put(isAuthenticatedUser, authorizeRoles("admin"), addToWishlist);
+
 
 router.route("/item/review").put(isAuthenticatedUser, createItemReview);
 router.route("/item/reviews")

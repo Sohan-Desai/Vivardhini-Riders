@@ -1,8 +1,10 @@
 const catchAsyncErrors = require("../middleware/catchAsyncError");
 const Item = require("../models/itemModel");
+const User = require("../models/userModel");
 const ErrorHandler = require("../util/errorhandler");
 const ApiFeatures = require("../util/apifeatures");
 const cloudinary = require("cloudinary");
+const { use } = require("../routes/itemRoute");
 
 // Get all items
 exports.getAllItems = catchAsyncErrors(async (req, res, next) => {
@@ -13,6 +15,8 @@ exports.getAllItems = catchAsyncErrors(async (req, res, next) => {
     const apifeature = new ApiFeatures(Item.find(), req.query)
         .search()
         .filter()
+        .sort()
+        .limit()
     let items = await apifeature.query;
     let filteredItemsCount = items.length;
 
@@ -41,7 +45,7 @@ exports.getAdminItems = catchAsyncErrors(async (req, res, next) => {
 })
 
 // Get item details
-exports.getItemDetails = catchAsyncErrors( async (req, res, next) => {
+exports.getItemDetails = catchAsyncErrors(async (req, res, next) => {
 
     const item = await Item.findById(req.params.id)
 
@@ -54,7 +58,7 @@ exports.getItemDetails = catchAsyncErrors( async (req, res, next) => {
     });
 })
 
-// Ceate product        -- admin
+// Create product        -- admin
 exports.createItem = catchAsyncErrors(async (req, res, next) => {
 
     let images = [];
@@ -142,6 +146,43 @@ exports.updateItem = async (req, res, next) => {
     })
 }
 
+// Add item to wishlist
+exports.addToWishlist = async (req, res, next) => {
+
+    let user = await User.findById(req.user.id);
+
+    if (!user) {
+        return next(new ErrorHandler("User not found", 404));
+    }
+
+    const alreadyAdded = user.wishlist.find((id) => id.toString() === req.body.prodId);
+
+    if(alreadyAdded){
+        user = await User.findByIdAndUpdate(req.user.id, {
+            $pull:{wishlist: req.body.prodId}
+        },{
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        });
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } else{
+        user = await User.findByIdAndUpdate(req.user.id, {
+            $push:{wishlist: req.body.prodId}
+        },{
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        });
+        res.status(200).json({
+            success: true,
+            user
+        });
+    }
+}
 // Delete item       -- admin
 
 exports.deleteItem = async (req, res, next) => {
